@@ -366,5 +366,20 @@ document.getElementById('publish').addEventListener('click', () => {
 
 renderPosts();
 </script>
+  <section id="auth-area" style="max-width:400px;margin:25px auto;padding:20px;background:#f1f1f1;border-radius:12px;color:#222;font-family:Arial,sans-serif;">
+  <h2>Entrar no Like-social</h2>
+  <label for="auth-email">E-mail</label>
+  <input id="auth-email" type="email" autocomplete="email" placeholder="Seu e-mail" style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 14px;">
+
+  <label for="auth-password">Senha</label>
+  <input id="auth-password" type="password" autocomplete="current-password" placeholder="Sua senha" style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 14px;">
+
+  <button id="login-btn" type="button" style="padding:10px 14px;margin:4px;">Entrar</button>
+  <button id="register-btn" type="button" style="padding:10px 14px;margin:4px;">Criar conta</button>
+  <button id="logout-btn" type="button" style="padding:10px 14px;margin:4px;display:none;">Sair</button>
+
+  <p id="auth-message" role="status">Entre ou crie sua conta.</p>
+  <p id="auth-user"></p>
+</section>
 </body>
 </html>
