@@ -381,5 +381,68 @@ renderPosts();
   <p id="auth-message" role="status">Entre ou crie sua conta.</p>
   <p id="auth-user"></p>
 </section>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey:"AIzaSyDRiHep4DridG9NnUWrlsIPb8wvPhQJmoI",
+    authDomain:"like-social-7cf52.firebaseapp.com",
+    projectId:"like-social-7cf52",
+  storageBucket:"like-social-7cf52.firebasestorage.app",
+    appId:"1:428069163476:web:e6095d9a415b8e0b898641"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const email = document.getElementById("auth-email");
+  const password = document.getElementById("auth-password");
+  const message = document.getElementById("auth-message");
+  const userText = document.getElementById("auth-user");
+  const loginBtn = document.getElementById("login-btn");
+  const registerBtn = document.getElementById("register-btn");
+  const logoutBtn = document.getElementById("logout-btn");
+
+  registerBtn.addEventListener("click", async () => {
+    try {
+      await createUserWithEmailAndPassword(
+        auth, email.value.trim(), password.value
+      );
+      message.textContent = "Conta criada com sucesso!";
+    } catch (error) {
+      message.textContent = "Erro: " + error.message;
+    }
+  });
+
+  loginBtn.addEventListener("click", async () => {
+    try {
+      await signInWithEmailAndPassword(
+        auth, email.value.trim(), password.value
+      );
+      message.textContent = "Login realizado!";
+    } catch (error) {
+      message.textContent = "Não foi possível entrar. Confira os dados.";
+    }
+  });
+
+  logoutBtn.addEventListener("click", async () => {
+    await signOut(auth);
+    message.textContent = "Você saiu da sua conta.";
+  });
+
+  onAuthStateChanged(auth, user => {
+    loginBtn.style.display = user ? "none" : "inline-block";
+    registerBtn.style.display = user ? "none" : "inline-block";
+    logoutBtn.style.display = user ? "inline-block" : "none";
+    userText.textContent = user ? "Conectado: " + user.email : "";
+  });
+</script>
 </body>
 </html>
